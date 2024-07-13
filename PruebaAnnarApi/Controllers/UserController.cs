@@ -27,7 +27,7 @@ namespace PruebaAnnarApi.Controllers
         }
 
         [HttpGet("[action]/{id:guid}")]
-        public async Task<ActionResult<UserListDto>> Get([FromQuery] Guid id)
+        public async Task<ActionResult<UserListDto>> Get([FromRoute] Guid id)
         {
             var user = await _userService.GetByIdAsync(id);
             if (user is null)
@@ -52,7 +52,7 @@ namespace PruebaAnnarApi.Controllers
         }
 
         [HttpDelete("[action]/{id:guid}")]
-        public async Task<ActionResult> Delete([FromQuery] Guid id)
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             await _userService.DeleteAsync(id);
             return Ok();

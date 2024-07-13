@@ -17,7 +17,7 @@ namespace PruebaAnnarApi.Infrastructure.Adapters
 
         public async Task<List<User>> GetAsync()
         {
-            List<User> users = await _context.User.ToListAsync();
+            List<User> users = await _context.User.Where(x => x.DeletedAt == null).ToListAsync();
             if (!users.Any())
             {
                 throw new InvalidOperationException("User not found.");
@@ -50,7 +50,9 @@ namespace PruebaAnnarApi.Infrastructure.Adapters
             {
                 throw new InvalidOperationException("User not found.");
             }
-            _context.Entry(user).State = EntityState.Modified;
+            user.CreatedAt = userExist.CreatedAt;
+            user.UpdatedAt = DateTime.Now;
+            _context.Entry(userExist).CurrentValues.SetValues(user);
             await _context.SaveChangesAsync();
         }
 

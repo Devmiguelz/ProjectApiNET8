@@ -9,7 +9,9 @@ namespace PruebaAnnarApi.Validators
         public UserCreateValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.");
-            RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Email is required.");
+            RuleFor(x => x.Email)
+                .NotEmpty().WithMessage("Email is required.")
+                .EmailAddress().WithMessage("Must be a valid email address.");
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Password is required.")
                 .MinimumLength(8).WithMessage("Password cannot be short than 8 characters.")

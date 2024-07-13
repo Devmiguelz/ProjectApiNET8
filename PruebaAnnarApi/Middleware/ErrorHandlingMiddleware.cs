@@ -53,7 +53,12 @@ namespace PruebaAnnarApi.Middleware
                     response.StatusCode = (int)HttpStatusCode.Conflict; 
                     mensajeError.StatusCode = response.StatusCode; 
                     mensajeError.Description = "There was a conflict with the current state of the resource."; 
-                    break; 
+                    break;
+                case InvalidOperationException _:
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    mensajeError.StatusCode = response.StatusCode;
+                    mensajeError.Description = "There was a invalid exception.";
+                    break;
                 default: 
                     response.StatusCode = (int)HttpStatusCode.InternalServerError; 
                     mensajeError.StatusCode = response.StatusCode; 

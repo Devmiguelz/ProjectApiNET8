@@ -2,7 +2,7 @@
 
 namespace PruebaAnnarApi.Domain.Ports
 {
-    public interface IUserService
+    public interface IUserDomainService
     {
         Task<List<User>> GetAsync();
         Task<User> GetByIdAsync(Guid id);

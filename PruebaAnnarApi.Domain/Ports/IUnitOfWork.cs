@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PruebaAnnarApi.Domain.Interfaces;
 
 namespace PruebaAnnarApi.Domain.Ports
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork: IDisposable
     {
+        IUserRepository UserRepository { get; }
+        Task SaveAsync();
     }
 }

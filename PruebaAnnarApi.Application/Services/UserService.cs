@@ -3,17 +3,17 @@ using ModelWebApi.Domain.Entities;
 using PruebaAnnarApi.Application.Dto.User;
 using PruebaAnnarApi.Application.Exceptions;
 using PruebaAnnarApi.Application.Ports;
-using PruebaAnnarApi.Domain.Interfaces;
+using PruebaAnnarApi.Domain.Ports;
 
 namespace PruebaAnnarApi.Application.Services 
 { 
     public class UserService: IUserService 
     { 
-        private readonly IUserRepository _userRepository; 
+        private readonly IUnitOfWork _unitOfWork; 
         private readonly IMapper _mapper; 
-        public UserService(IUserRepository userDomain, IMapper mapper) 
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper) 
         {
-            _userRepository = userDomain; 
+            _unitOfWork = unitOfWork; 
             _mapper = mapper; 
         }
 
@@ -21,8 +21,8 @@ namespace PruebaAnnarApi.Application.Services
         {
             try
             {
-                List<User> userList = await _userRepository.GetAsync();
-                if (userList.Any())
+                List<User> userList = await _unitOfWork.UserRepository.GetAsync();
+                if (!userList.Any())
                 {
                     throw new NotFoundException("Users not found.");
                 }
@@ -38,7 +38,7 @@ namespace PruebaAnnarApi.Application.Services
         {
             try
             {
-                User userData = await _userRepository.GetByIdAsync(id);
+                User userData = await _unitOfWork.UserRepository.GetByIdAsync(id);
                 if (userData is null)
                 {
                     throw new NotFoundException("User not found.");
@@ -56,7 +56,7 @@ namespace PruebaAnnarApi.Application.Services
             try
             {
                 User userNew = _mapper.Map<UserCreateDto, User>(user);
-                await _userRepository.AddAsync(userNew);
+                await _unitOfWork.UserRepository.AddAsync(userNew);
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace PruebaAnnarApi.Application.Services
             try
             {
                 User userUpdate = _mapper.Map<UserUpdateDto, User>(user);
-                await _userRepository.UpdateAsync(userUpdate);
+                await _unitOfWork.UserRepository.UpdateAsync(userUpdate);
             }
             catch (Exception ex)
             {
@@ -81,7 +81,7 @@ namespace PruebaAnnarApi.Application.Services
         {
             try
             {
-                await _userRepository.DeleteAsync(userId);    
+                await _unitOfWork.UserRepository.DeleteAsync(userId);    
             }
             catch (Exception ex)
             {

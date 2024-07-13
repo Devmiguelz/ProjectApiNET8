@@ -8,7 +8,7 @@ namespace PruebaAnnarApi.Domain.DependencyInjection
     {
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserDomainService, UserDomainService>();
 
             return services;
         }

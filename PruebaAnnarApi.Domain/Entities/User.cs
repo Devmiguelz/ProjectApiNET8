@@ -4,8 +4,11 @@ using PruebaAnnarApi.Domain.Entities;
 
 namespace ModelWebApi.Domain.Entities
 {
-    public class User: DomainEntity
+    public class User
     {
+        [Key]
+        public Guid Id { get; set; }
+
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string Name { get; set; }

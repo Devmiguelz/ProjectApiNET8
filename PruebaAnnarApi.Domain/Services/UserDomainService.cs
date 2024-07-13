@@ -4,11 +4,11 @@ using PruebaAnnarApi.Domain.Ports;
 
 namespace PruebaAnnarApi.Domain.Services 
 {
-    public class UserService : IUserService
+    public class UserDomainService : IUserDomainService
     {
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserDomainService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
