@@ -12,8 +12,8 @@ using PruebaAnnarApi.Infrastructure.Persistence;
 namespace PruebaAnnarApi.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240710010901_Nueva_Migracion")]
-    partial class Nueva_Migracion
+    [Migration("20240719193421_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

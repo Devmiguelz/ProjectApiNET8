@@ -40,7 +40,6 @@ namespace PruebaAnnarApi.Infrastructure.Adapters
             user.Id = Guid.NewGuid();   
             user.CreatedAt = DateTime.Now;
             await _context.User.AddAsync(user);
-            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(User user)
@@ -53,7 +52,6 @@ namespace PruebaAnnarApi.Infrastructure.Adapters
             user.CreatedAt = userExist.CreatedAt;
             user.UpdatedAt = DateTime.Now;
             _context.Entry(userExist).CurrentValues.SetValues(user);
-            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Guid userId)
@@ -64,7 +62,6 @@ namespace PruebaAnnarApi.Infrastructure.Adapters
                 throw new InvalidOperationException("User not found.");
             }
             userExist.DeletedAt = DateTime.Now;
-            await _context.SaveChangesAsync();
         }
     } 
 } 

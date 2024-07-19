@@ -1,13 +1,14 @@
 using PruebaAnnarApi.Application.Dto.User;
+using PruebaAnnarApi.Application.Response;
 
 namespace PruebaAnnarApi.Application.Ports
 { 
     public interface IUserService 
     {
-        Task<IEnumerable<UserListDto>> GetAsync();
-        Task<UserListDto> GetByIdAsync(Guid id);
-        Task AddAsync(UserCreateDto user);
-        Task UpdateAsync(UserUpdateDto user);
-        Task DeleteAsync(Guid userId);
+        Task<Result<IEnumerable<UserListDto>>> GetAsync();
+        Task<Result<UserListDto>> GetByIdAsync(Guid id);
+        Task<Result<UserListDto>> AddAsync(UserCreateDto user);
+        Task<Result<UserListDto>> UpdateAsync(UserUpdateDto user);
+        Task<Result<bool>> DeleteAsync(Guid userId);
     } 
 }  

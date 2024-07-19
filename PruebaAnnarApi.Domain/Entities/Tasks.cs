@@ -1,12 +1,14 @@
-﻿using PruebaAnnarApi.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelWebApi.Domain.Entities
 {
     [Table("Task")]
-    public class Tasks: DomainEntity
+    public class Tasks
     {
+        [Key]
+        public Guid Id { get; set; }
+
         [Column(TypeName = "varchar(100)")]
         public string Title { get; set; } = null!;
 

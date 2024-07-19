@@ -1,6 +1,6 @@
 ﻿namespace PruebaAnnarApi.Application.Dto.User
 {
-    public class UserUpdateDto
+    public record UserUpdateDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;

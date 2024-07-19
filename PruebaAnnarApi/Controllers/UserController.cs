@@ -16,46 +16,53 @@ namespace PruebaAnnarApi.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<UserListDto>>> Get()
+        public async Task<IActionResult> Get()
         {
-            var user = await _userService.GetAsync();
-            if (user is null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
+            var result = await _userService.GetAsync();
+            return result.Match<IActionResult>(
+                    onSuccess: user => Ok(result), 
+                    onFailure: errors => NotFound(result)
+                );
         }
 
         [HttpGet("[action]/{id:guid}")]
-        public async Task<ActionResult<UserListDto>> Get([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var user = await _userService.GetByIdAsync(id);
-            if (user is null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
+            var result = await _userService.GetByIdAsync(id);
+            return result.Match<IActionResult>(
+                    onSuccess: user => Ok(result),
+                    onFailure: errors => NotFound(result)
+                );
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult> Add([FromBody] UserCreateDto user)
+        public async Task<IActionResult> Add([FromBody] UserCreateDto user)
         {
-            await _userService.AddAsync(user);
-            return Ok();
+            var result = await _userService.AddAsync(user);
+            return result.Match<IActionResult>(
+                    onSuccess: user => Ok(result),
+                    onFailure: errors => NotFound(result)
+                );
         }
 
         [HttpPut("[action]")]
-        public async Task<ActionResult> Update([FromBody] UserUpdateDto user)
+        public async Task<IActionResult> Update([FromBody] UserUpdateDto user)
         {
-            await _userService.UpdateAsync(user);
-            return Ok();
+            var result = await _userService.UpdateAsync(user);
+            return result.Match<IActionResult>(
+                    onSuccess: user => Ok(result),
+                    onFailure: errors => NotFound(result)
+                );
         }
 
         [HttpDelete("[action]/{id:guid}")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            await _userService.DeleteAsync(id);
-            return Ok();
+            var result = await _userService.DeleteAsync(id);
+            return result.Match<IActionResult>(
+                    onSuccess: user => NoContent(),
+                    onFailure: errors => NotFound(result)
+                );
         }
 
     } 
